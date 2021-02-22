@@ -20,6 +20,8 @@ let currentSize = 10;
 let bucketColor = "#FFFFFF";
 let currentColor = "#A51DAB";
 let isEraser = false;
+let isMouseDown = false;
+let drawnArray = [];
 
 // Formatting Brush Size
 function displayBrushSize() {
@@ -93,14 +95,20 @@ function getMousePosition(event) {
 canvas.addEventListener("mousedown", (event) => {
     isMouseDown = true;
     const currentPosition = getMousePosition(event);
-    console.log("mouse is clicked", currentPosition);
+      context.moveTo(currentPosition.x, currentPosition.y);
+      context.beginPath();
+      context.lineWidth = currentSize;
+      context.lineCap = 'round';
+      context.strokeStyle = currentColor;
 });
 
 // Mouse Move
 canvas.addEventListener("mousemove", (event) => {
     if (isMouseDown) {
         const currentPosition = getMousePosition(event);
-        console.log("mouse is moving", currentPosition);
+          context.lineTo(currentPosition.x, currentPosition.y);
+          context.stroke();
+
     }
 });
 
